@@ -1,11 +1,12 @@
 import React from "react";
-import { Link, Col, Row, Spacer } from "vcc-ui";
+import { Col, Row} from "vcc-ui";
+import LinkLearnShop from "./LinkLearnShop";
 
-function LearnShopLink(props: { renderItems: any[] }) {
+function LearnShopLinkDesktop(props: { renderItems: any[] }) {
   const renderItems = props.renderItems.map((i) => {
     return (
       <Col size={3} key={i.key}>
-        <Row align="center">
+        {/* <Row align="center">
           <Link href={`/learn/${i.key}`} arrow="right">
             Learn
           </Link>
@@ -15,11 +16,12 @@ function LearnShopLink(props: { renderItems: any[] }) {
           <Link href={`/shop/${i.key}`} arrow="right">
             Shop
           </Link>
-        </Row>
+        </Row> */}
+        <LinkLearnShop id={i.key}/> 
       </Col>
     );
   });
 
   return <Row>{renderItems}</Row>;
 }
-export default LearnShopLink;
+export default LearnShopLinkDesktop;

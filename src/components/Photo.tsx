@@ -11,9 +11,10 @@ import {
   useTheme,
   View,
 } from "vcc-ui";
-import LearnShopLink from "./LearnShopLink";
-import { isMobile } from "react-device-detect";
+import LearnShopLinkDesktop from "./LearnShopLinkDesktop";
+/* import { isMobile } from "react-device-detect"; */
 
+import Carousel from "./Carousel"
 
 function Photo(props: { data: any[] }) {
   const itemsPerPage = 4;
@@ -23,6 +24,8 @@ function Photo(props: { data: any[] }) {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = props.data.slice(indexOfFirstItem, indexOfLastItem);
   const theme = useTheme();
+  const data =props.data
+
   const renderItems = currentItems.map((i) => {
     return (
       <Col size={3} key={i.id}>
@@ -70,14 +73,17 @@ function Photo(props: { data: any[] }) {
   let firstPage = Number(pageNumbers[0]);
 
   return (
+    <div>
+      {/* isMobile  */false? (
 
+        <Carousel data={data} />
+    
+      ) : (
         <div>
           <Row align="center">{renderItems}</Row>
-          {isMobile ? (
-    <LearnShopLink renderItems={renderItems} />
-      ) : (
-          <LearnShopLink renderItems={renderItems} />
-      )}
+
+          <LearnShopLinkDesktop renderItems={renderItems} />
+
           {page > lastPage || page < firstPage ? setEmptyPage(true) : ""}
           <View paddingRight={1} paddingTop={3}>
             <Row align="end" aria-label="Page navigation">
@@ -103,6 +109,8 @@ function Photo(props: { data: any[] }) {
               )}
             </Row>
           </View>
+        </div>
+      )}
     </div>
   );
 }

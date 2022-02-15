@@ -1,4 +1,9 @@
 body {
   background: #fafafa;
   color: white;
+  
+}
+
+.slick-slide img {
+  margin: auto;
 }
