@@ -12,6 +12,8 @@ import {
   View,
 } from "vcc-ui";
 import LearnShopLink from "./LearnShopLink";
+import { isMobile } from "react-device-detect";
+
 
 function Photo(props: { data: any[] }) {
   const itemsPerPage = 4;
@@ -68,37 +70,39 @@ function Photo(props: { data: any[] }) {
   let firstPage = Number(pageNumbers[0]);
 
   return (
-    <div>
-      <Row align="center">{renderItems}</Row>
 
-      <LearnShopLink renderItems={renderItems} />
-   
-
-      {page > lastPage || page < firstPage ? setEmptyPage(true) : ""}
-      <View paddingRight={1} paddingTop={3}>
-        <Row align="end" aria-label="Page navigation">
-          {!emptyPage ? (
-            <a
-              href="#"
-              aria-label="Previous"
-              onClick={() => {
-                page === firstPage ? setPage(lastPage) : setPage(page - 1);
-              }}
-            >
-              <Icon type="media-previous-32" />
-            </a>
-          ) : (
-            (setPage(lastPage), setEmptyPage(false))
-          )}
-          {!emptyPage ? (
-            <a href="#" aria-label="Next" onClick={() => setPage(page + 1)}>
-              <Icon type="media-next-32" />
-            </a>
-          ) : (
-            (setPage(firstPage), setEmptyPage(false))
-          )}
-        </Row>
-      </View>
+        <div>
+          <Row align="center">{renderItems}</Row>
+          {isMobile ? (
+    <LearnShopLink renderItems={renderItems} />
+      ) : (
+          <LearnShopLink renderItems={renderItems} />
+      )}
+          {page > lastPage || page < firstPage ? setEmptyPage(true) : ""}
+          <View paddingRight={1} paddingTop={3}>
+            <Row align="end" aria-label="Page navigation">
+              {!emptyPage ? (
+                <a
+                  href="#"
+                  aria-label="Previous"
+                  onClick={() => {
+                    page === firstPage ? setPage(lastPage) : setPage(page - 1);
+                  }}
+                >
+                  <Icon type="media-previous-32" />
+                </a>
+              ) : (
+                (setPage(lastPage), setEmptyPage(false))
+              )}
+              {!emptyPage ? (
+                <a href="#" aria-label="Next" onClick={() => setPage(page + 1)}>
+                  <Icon type="media-next-32" />
+                </a>
+              ) : (
+                (setPage(firstPage), setEmptyPage(false))
+              )}
+            </Row>
+          </View>
     </div>
   );
 }
