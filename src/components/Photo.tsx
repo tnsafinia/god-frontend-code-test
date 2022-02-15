@@ -11,6 +11,7 @@ import {
   useTheme,
   View,
 } from "vcc-ui";
+import LearnShopLink from "./LearnShopLink";
 
 function Photo(props: { data: any[] }) {
   const itemsPerPage = 4;
@@ -68,7 +69,11 @@ function Photo(props: { data: any[] }) {
 
   return (
     <div>
-      <Row align="center">{renderItems} </Row>
+      <Row align="center">{renderItems}</Row>
+
+      <LearnShopLink renderItems={renderItems} />
+   
+
       {page > lastPage || page < firstPage ? setEmptyPage(true) : ""}
       <View paddingRight={1} paddingTop={3}>
         <Row align="end" aria-label="Page navigation">

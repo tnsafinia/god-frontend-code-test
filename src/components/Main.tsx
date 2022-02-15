@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { StyleProvider, ThemePicker, Button, Grid, Row } from "vcc-ui";
+import Linking from "./Linking";
 import Photo from "./Photo";
 
 export const Main = () => {
@@ -12,6 +13,7 @@ export const Main = () => {
         <Grid>
           
           <Photo data={getData} />
+          
         </Grid>
       </ThemePicker>
     </StyleProvider>
