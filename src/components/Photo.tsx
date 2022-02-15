@@ -1,6 +1,16 @@
 import React, { useState } from "react";
 import Image from "next/image";
-import { Block, Text, Col, Row, Icon } from "vcc-ui";
+import {
+  Block,
+  Text,
+  Col,
+  Row,
+  Icon,
+  Flex,
+  Spacer,
+  useTheme,
+  View,
+} from "vcc-ui";
 
 function Photo(props: { data: any[] }) {
   const itemsPerPage = 4;
@@ -9,14 +19,33 @@ function Photo(props: { data: any[] }) {
   const indexOfLastItem = page * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = props.data.slice(indexOfFirstItem, indexOfLastItem);
-
+  const theme = useTheme();
   const renderItems = currentItems.map((i) => {
     return (
       <Col size={3} key={i.id}>
-        <Block extend={{ textAlign: "left" }}>
-          <Text>{i.bodyType}</Text>
-          <Text>{i.modelName}</Text>
-          <Text>{i.modelType}</Text>
+        <Block
+          extend={{
+            textAlign: "left",
+            paddingBottom: "1rem",
+            paddingTop: "4rem",
+          }}
+        >
+          <Text
+            extend={{
+              color: theme.color.foreground.secondary,
+              fontSize: "1rem",
+            }}
+          >
+            {i.bodyType}
+          </Text>
+          <Flex extend={{ flexDirection: "row", fontSize: "3rem" }}>
+            <Text subStyle="emphasis">{i.modelName}</Text>
+            <Spacer />
+            <Text extend={{ color: theme.color.foreground.secondary }}>
+              {i.modelType}
+            </Text>
+            <Spacer />
+          </Flex>
         </Block>
         <Image
           key={i.id}
@@ -40,32 +69,31 @@ function Photo(props: { data: any[] }) {
   return (
     <div>
       <Row align="center">{renderItems} </Row>
-      {page > lastPage || page < firstPage
-        ? setEmptyPage(true)
-        : ('')}
-
-      <Row align="end" aria-label="Page navigation">
-        {!emptyPage ? (
-          <a
-            href="#"
-            aria-label="Previous"
-            onClick={() => {
-              page === firstPage ? setPage(lastPage) : setPage(page - 1);
-            }}
-          >
-            <Icon type="media-previous-32" />
-          </a>
-        ) : (
-          (setPage(lastPage), setEmptyPage(false))
-        )}
-        {!emptyPage ? (
-          <a href="#" aria-label="Next" onClick={() => setPage(page + 1)}>
-            <Icon type="media-next-32" />
-          </a>
-        ) : (
-          (setPage(firstPage), setEmptyPage(false))
-        )}
-      </Row>
+      {page > lastPage || page < firstPage ? setEmptyPage(true) : ""}
+      <View paddingRight={1} paddingTop={3}>
+        <Row align="end" aria-label="Page navigation">
+          {!emptyPage ? (
+            <a
+              href="#"
+              aria-label="Previous"
+              onClick={() => {
+                page === firstPage ? setPage(lastPage) : setPage(page - 1);
+              }}
+            >
+              <Icon type="media-previous-32" />
+            </a>
+          ) : (
+            (setPage(lastPage), setEmptyPage(false))
+          )}
+          {!emptyPage ? (
+            <a href="#" aria-label="Next" onClick={() => setPage(page + 1)}>
+              <Icon type="media-next-32" />
+            </a>
+          ) : (
+            (setPage(firstPage), setEmptyPage(false))
+          )}
+        </Row>
+      </View>
     </div>
   );
 }
