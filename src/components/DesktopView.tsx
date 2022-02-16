@@ -13,7 +13,7 @@ import {
 } from "vcc-ui";
 import LearnShopLinkDesktop from "./LearnShopLinkDesktop";
 
-function Photo(props: { data: any[] }) {
+function DesktopView(props: { data: any[] }) {
   const itemsPerPage = 4;
   const [page, setPage] = useState(1);
   const [emptyPage, setEmptyPage] = useState(false);
@@ -105,4 +105,4 @@ function Photo(props: { data: any[] }) {
     </div>
   );
 }
-export default Photo;
+export default DesktopView;

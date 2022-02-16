@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleProvider, ThemePicker, Grid} from "vcc-ui";
 import MobileView from "./MobileView";
-import Photo from "./Photo";
+import DesktopView from "./DesktopView";
 import dynamic from "next/dynamic";
 
 
@@ -19,7 +19,7 @@ export const Main = () => {
           <Device>
             {({ isMobile }) => {
               if (isMobile) return <MobileView data={getData} />;
-              return <Photo data={getData} />;
+              return <DesktopView data={getData} />;
             }}
           </Device>
         </Grid>
