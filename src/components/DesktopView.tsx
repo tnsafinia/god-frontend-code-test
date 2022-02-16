@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Col, Row, Icon, View } from "vcc-ui";
-
+import { Col, Row, Icon, View, TextInput, Text } from "vcc-ui";
 import CarImage from "./CarImage";
 import CarText from "./CarText";
 import LinkLearnShop from "./LinkLearnShop";
+import Filter from "./Filter";
 
 function DesktopView(props: { data: any[] }) {
   const itemsPerPage = 4;
@@ -12,6 +12,22 @@ function DesktopView(props: { data: any[] }) {
   const indexOfLastItem = page * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = props.data.slice(indexOfFirstItem, indexOfLastItem);
+  const [value, setValue] = useState("");
+  /* const [value, setValue] = useState("");
+
+  const filteredItems = props.data.filter(function (item) {
+    return item.bodyType == value;
+  });
+
+  const renderFilteredItems = filteredItems.map((i) => {
+    return (
+      <Col size={3} key={i.id}>
+        <CarText data={i} />
+        <CarImage data={i} />
+        <LinkLearnShop id={i.id} />
+      </Col>
+    );
+  }); */
 
   const renderItems = currentItems.map((i) => {
     return (
@@ -33,7 +49,20 @@ function DesktopView(props: { data: any[] }) {
   return (
     <div>
       <div>
-        <Row align="center">{renderItems}</Row>
+        <TextInput
+          value={value}
+          placeholder="Filter by bodyType..."
+          type="bodyType"
+          onChange={(e) => {
+            setValue(e.target.value);
+          }}
+        />
+
+        {value === "" ? (
+          <Row align="center">{renderItems}</Row>
+        ) : (
+          <Filter data={props.data} value={value} />
+        )}
 
         {page > lastPage || page < firstPage ? setEmptyPage(true) : ""}
         <View paddingRight={1} paddingTop={3}>
