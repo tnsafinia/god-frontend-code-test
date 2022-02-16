@@ -12,9 +12,6 @@ import {
   View,
 } from "vcc-ui";
 import LearnShopLinkDesktop from "./LearnShopLinkDesktop";
-/* import { isMobile } from "react-device-detect"; */
-
-import Carousel from "./Carousel"
 
 function Photo(props: { data: any[] }) {
   const itemsPerPage = 4;
@@ -24,7 +21,7 @@ function Photo(props: { data: any[] }) {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = props.data.slice(indexOfFirstItem, indexOfLastItem);
   const theme = useTheme();
-  const data =props.data
+  const data = props.data;
 
   const renderItems = currentItems.map((i) => {
     return (
@@ -74,43 +71,37 @@ function Photo(props: { data: any[] }) {
 
   return (
     <div>
-      {/* isMobile  */false? (
+      <div>
+        <Row align="center">{renderItems}</Row>
 
-        <Carousel data={data} />
-    
-      ) : (
-        <div>
-          <Row align="center">{renderItems}</Row>
+        <LearnShopLinkDesktop renderItems={renderItems} />
 
-          <LearnShopLinkDesktop renderItems={renderItems} />
-
-          {page > lastPage || page < firstPage ? setEmptyPage(true) : ""}
-          <View paddingRight={1} paddingTop={3}>
-            <Row align="end" aria-label="Page navigation">
-              {!emptyPage ? (
-                <a
-                  href="#"
-                  aria-label="Previous"
-                  onClick={() => {
-                    page === firstPage ? setPage(lastPage) : setPage(page - 1);
-                  }}
-                >
-                  <Icon type="media-previous-32" />
-                </a>
-              ) : (
-                (setPage(lastPage), setEmptyPage(false))
-              )}
-              {!emptyPage ? (
-                <a href="#" aria-label="Next" onClick={() => setPage(page + 1)}>
-                  <Icon type="media-next-32" />
-                </a>
-              ) : (
-                (setPage(firstPage), setEmptyPage(false))
-              )}
-            </Row>
-          </View>
-        </div>
-      )}
+        {page > lastPage || page < firstPage ? setEmptyPage(true) : ""}
+        <View paddingRight={1} paddingTop={3}>
+          <Row align="end" aria-label="Page navigation">
+            {!emptyPage ? (
+              <a
+                href="#"
+                aria-label="Previous"
+                onClick={() => {
+                  page === firstPage ? setPage(lastPage) : setPage(page - 1);
+                }}
+              >
+                <Icon type="media-previous-32" />
+              </a>
+            ) : (
+              (setPage(lastPage), setEmptyPage(false))
+            )}
+            {!emptyPage ? (
+              <a href="#" aria-label="Next" onClick={() => setPage(page + 1)}>
+                <Icon type="media-next-32" />
+              </a>
+            ) : (
+              (setPage(firstPage), setEmptyPage(false))
+            )}
+          </Row>
+        </View>
+      </div>
     </div>
   );
 }

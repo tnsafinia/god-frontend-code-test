@@ -1,19 +1,27 @@
-import React, { useEffect, useState } from "react";
-import { StyleProvider, ThemePicker, Button, Grid, Row } from "vcc-ui";
-
+import React from "react";
+import { StyleProvider, ThemePicker, Grid} from "vcc-ui";
+import MobileView from "./MobileView";
 import Photo from "./Photo";
+import dynamic from "next/dynamic";
+
+
 
 export const Main = () => {
   const getData = require("../../public/api/cars.json");
-  const itemsPerPage = 4
+
+  const Device = dynamic(() => import("./DetectDevice"), { ssr: false });
+/* export default Device; */
 
   return (
     <StyleProvider>
       <ThemePicker variant="light">
         <Grid>
-          
-          <Photo data={getData} />
-          
+          <Device>
+            {({ isMobile }) => {
+              if (isMobile) return <MobileView data={getData} />;
+              return <Photo data={getData} />;
+            }}
+          </Device>
         </Grid>
       </ThemePicker>
     </StyleProvider>
