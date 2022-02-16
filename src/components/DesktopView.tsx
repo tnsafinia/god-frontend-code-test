@@ -1,17 +1,9 @@
 import React, { useState } from "react";
-import Image from "next/image";
-import {
-  Block,
-  Text,
-  Col,
-  Row,
-  Icon,
-  Flex,
-  Spacer,
-  useTheme,
-  View,
-} from "vcc-ui";
-import LearnShopLinkDesktop from "./LearnShopLinkDesktop";
+import { Col, Row, Icon, View } from "vcc-ui";
+
+import CarImage from "./CarImage";
+import CarText from "./CarText";
+import LinkLearnShop from "./LinkLearnShop";
 
 function DesktopView(props: { data: any[] }) {
   const itemsPerPage = 4;
@@ -20,44 +12,13 @@ function DesktopView(props: { data: any[] }) {
   const indexOfLastItem = page * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = props.data.slice(indexOfFirstItem, indexOfLastItem);
-  const theme = useTheme();
-  const data = props.data;
 
   const renderItems = currentItems.map((i) => {
     return (
       <Col size={3} key={i.id}>
-        <Block
-          extend={{
-            textAlign: "left",
-            paddingBottom: "1rem",
-            paddingTop: "4rem",
-          }}
-        >
-          <Text
-            extend={{
-              color: theme.color.foreground.secondary,
-              fontSize: "1rem",
-            }}
-          >
-            {i.bodyType}
-          </Text>
-          <Flex extend={{ flexDirection: "row", fontSize: "3rem" }}>
-            <Text subStyle="emphasis">{i.modelName}</Text>
-            <Spacer />
-            <Text extend={{ color: theme.color.foreground.secondary }}>
-              {i.modelType}
-            </Text>
-            <Spacer />
-          </Flex>
-        </Block>
-        <Image
-          key={i.id}
-          src={i.imageUrl}
-          alt={i.modelName}
-          width="400px"
-          height="340px"
-          //layout="responsive"
-        />
+        <CarText data={i} />
+        <CarImage data={i} />
+        <LinkLearnShop id={i.id} />
       </Col>
     );
   });
@@ -73,8 +34,6 @@ function DesktopView(props: { data: any[] }) {
     <div>
       <div>
         <Row align="center">{renderItems}</Row>
-
-        <LearnShopLinkDesktop renderItems={renderItems} />
 
         {page > lastPage || page < firstPage ? setEmptyPage(true) : ""}
         <View paddingRight={1} paddingTop={3}>

@@ -1,16 +1,13 @@
 import React from "react";
-import { StyleProvider, ThemePicker, Grid} from "vcc-ui";
+import { StyleProvider, ThemePicker, Grid } from "vcc-ui";
 import MobileView from "./MobileView";
 import DesktopView from "./DesktopView";
 import dynamic from "next/dynamic";
 
-
-
 export const Main = () => {
   const getData = require("../../public/api/cars.json");
-
   const Device = dynamic(() => import("./DetectDevice"), { ssr: false });
-/* export default Device; */
+  /* export default Device; */
 
   return (
     <StyleProvider>

@@ -3,9 +3,7 @@ import "slick-carousel/slick/slick-theme.css";
 import React from "react";
 import Image from "next/image";
 
-
 export default function CarImage(data: any) {
-
   return (
     <div>
       <div key={data.data.id}>
